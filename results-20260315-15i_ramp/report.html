@@ -1,0 +1,1057 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Optimization Report</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 40px;
+    background:#f5f5f5;
+}
+
+h1,h2 {
+    margin-top:40px;
+}
+
+.card {
+    background:white;
+    padding:20px;
+    border-radius:8px;
+    margin-bottom:20px;
+    box-shadow:0 2px 4px rgba(0,0,0,0.1);
+}
+
+table {
+    border-collapse: collapse;
+    width:100%;
+}
+
+th,td {
+    padding:8px;
+    border-bottom:1px solid #ddd;
+    text-align:center;
+}
+
+th {
+    background:#333;
+    color:white;
+}
+
+th.sortable {
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+}
+
+th.sortable:hover {
+    background: #444;
+}
+
+th.sortable .sort-indicator {
+    margin-left: 6px;
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.better {
+    color:green;
+    font-weight:bold;
+}
+
+.worse {
+    color:red;
+    font-weight:bold;
+}
+
+.neutral {
+    color:gray;
+}
+
+.metric-grid {
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Online Boutique Optimization Report</h1>
+
+<div class="card">
+
+<h2>Summary</h2>
+
+<ul>
+<li>Total Iterations: 16</li>
+<li>Acceptable Iterations: 14</li>
+<li>Best Iteration: 3</li>
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h2>Best Recommendation</h2>
+
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Baseline (Iteration 0)</th>
+<th>Best (Iteration 3)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Memory Request</td>
+<td>180.0</td>
+<td class="better">▲ 128.0</td>
+</tr>
+<tr>
+<td>Memory Limit</td>
+<td>300.0</td>
+<td class="better">▲ 256.0</td>
+</tr>
+<tr>
+<td>Memory Use (Avg)</td>
+<td>233.70</td>
+<td class="better">▲ 163.73</td>
+</tr>
+<tr>
+<td>Heap</td>
+<td>512</td>
+<td>128</td>
+</tr>
+<tr>
+<td>GC Type</td>
+<td>UseSerialGC</td>
+<td>UseG1GC</td>
+</tr>
+<tr>
+<td>CPU Request</td>
+<td>200m</td>
+<td class="worse">▼ 50m</td>
+</tr>
+<tr>
+<td>CPU Limit</td>
+<td>300m</td>
+<td class="better">▲ 200m</td>
+</tr>
+<tr>
+<td>CPU Use (Avg)</td>
+<td>0.02</td>
+<td class="worse">▼ 0.04</td>
+</tr>
+<tr>
+<td>Throughput</td>
+<td>88.24</td>
+<td>96.42</td>
+</tr>
+<tr>
+<td>Response Time (ms)</td>
+<td>569.71</td>
+<td>508.70</td>
+</tr>
+<tr>
+<td>Error Rate (%)</td>
+<td>8.462171804958375</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+
+<h2>Performance Charts</h2>
+<div class="metric-grid">
+    <div class="chart-card" style="display:none;">
+        <canvas id="throughput"></canvas>
+    </div>
+    <div class="chart-card" style="display:none;">
+        <canvas id="response"></canvas>
+    </div>
+    <div class="chart-card" style="display:none;">
+        <canvas id="memory"></canvas>
+    </div>
+    <div class="chart-card">
+        <canvas id="cpuEfficiency"></canvas>
+        <div class="small-note">
+            CPU efficiency = throughput / CPU limit cores. Higher means more throughput per provisioned CPU.
+        </div>
+    </div>
+    <div class="chart-card">
+        <canvas id="pareto"></canvas>
+        <div class="small-note">
+            X = response time (lower is better), Y = throughput (higher is better).
+            Red points/line show the Pareto frontier: non-dominated configurations.
+        </div>
+        <div class="legend">
+            <span><i class="dot dot-all"></i> all iterations</span>
+            <span><i class="dot dot-frontier"></i> Pareto frontier</span>
+        </div>
+    </div>
+    <div class="chart-card">
+        <canvas id="memoryThroughputGc"></canvas>
+        <div class="small-note">
+            X = memory_usage_mib, Y = throughput. Dot color corresponds to GC type.
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+<h2>Iteration Comparison</h2>
+
+<div class="card">
+
+<table id="iterationTable">
+
+<thead>
+                <tr>
+                    <th class="sortable">Iteration<span class="sort-indicator"></span></th>
+                    <th class="sortable">CPU Req<span class="sort-indicator"></span></th>
+                    <th class="sortable">CPU Lim<span class="sort-indicator"></span></th>
+                    <th class="sortable">Mem Req<span class="sort-indicator"></span></th>
+                    <th class="sortable">Mem Lim<span class="sort-indicator"></span></th>
+                    <th class="sortable">Heap<span class="sort-indicator"></span></th>
+                    <th class="sortable">GC<span class="sort-indicator"></span></th>
+                    <th class="sortable">Throughput<span class="sort-indicator"></span></th>
+                    <th class="sortable">Resp Time<span class="sort-indicator"></span></th>
+                    <th class="sortable">Error %<span class="sort-indicator"></span></th>
+                    <th class="sortable">Mem Limit MiB<span class="sort-indicator"></span></th>
+                    <th class="sortable">CPU Efficiency<span class="sort-indicator"></span></th>
+                    <th class="sortable">Score<span class="sort-indicator"></span></th>
+                    <th class="sortable">Acceptable<span class="sort-indicator"></span></th>
+                </tr>
+            </thead>
+<tbody>
+
+
+        <tr>
+            <td data-sort-value="3">3</td>
+            <td data-sort-value="50m">50m</td>
+            <td data-sort-value="200m">200m</td>
+            <td data-sort-value="128Mi">128Mi</td>
+            <td data-sort-value="256Mi">256Mi</td>
+            <td data-sort-value="128">128</td>
+            <td data-sort-value="UseG1GC">UseG1GC</td>
+
+            <td class="better" data-sort-value="96.41668727272724">
+                ▲ 96.42
+            </td>
+
+            <td class="better" data-sort-value="508.70228957252385">
+                ▲ 508.70
+            </td>
+
+            <td class="better" data-sort-value="0.0">
+                ▲ 0.00
+            </td>
+
+            <td class="better" data-sort-value="256.0">
+                ▲ 256
+            </td>
+
+            <td class="better" data-sort-value="482.0834363636362">
+                ▲ 482.08
+            </td>
+
+            <td data-sort-value="256128412.29">256128412.29</td>
+            <td data-sort-value="True">True</td>
+        </tr>
+        
+
+        <tr>
+            <td data-sort-value="9">9</td>
+            <td data-sort-value="850m">850m</td>
+            <td data-sort-value="1500m">1500m</td>
+            <td data-sort-value="256Mi">256Mi</td>
+            <td data-sort-value="256Mi">256Mi</td>
+            <td data-sort-value="128">128</td>
+            <td data-sort-value="UseG1GC">UseG1GC</td>
+
+            <td class="better" data-sort-value="94.96837303030304">
+                ▲ 94.97
+            </td>
+
+            <td class="better" data-sort-value="527.6322110078522">
+                ▲ 527.63
+            </td>
+
+            <td class="better" data-sort-value="0.0">
+                ▲ 0.00
+            </td>
+
+            <td class="better" data-sort-value="256.0">
+                ▲ 256
+            </td>
+
+            <td class="worse" data-sort-value="63.31224868686869">
+                ▼ 63.31
+            </td>
+
+            <td data-sort-value="256256432.66">256256432.66</td>
+            <td data-sort-value="True">True</td>
+        </tr>
+        
+
+        <tr>
+            <td data-sort-value="5">5</td>
+            <td data-sort-value="650m">650m</td>
+            <td data-sort-value="1800m">1800m</td>
+            <td data-sort-value="256Mi">256Mi</td>
+            <td data-sort-value="256Mi">256Mi</td>
+            <td data-sort-value="128">128</td>
+            <td data-sort-value="UseSerialGC">UseSerialGC</td>
+
+            <td class="better" data-sort-value="95.26791166666666">
+                ▲ 95.27
+            </td>
+
+            <td class="better" data-sort-value="535.0510160706397">
+                ▲ 535.05
+            </td>
+
+            <td class="better" data-sort-value="0.0">
+                ▲ 0.00
+            </td>
+
+            <td class="better" data-sort-value="256.0">
+                ▲ 256
+            </td>
+
+            <td class="worse" data-sort-value="52.92661759259259">
+                ▼ 52.93
+            </td>
+
+            <td data-sort-value="256256439.78">256256439.78</td>
+            <td data-sort-value="True">True</td>
+        </tr>
+        
+
+        <tr>
+            <td data-sort-value="7">7</td>
+            <td data-sort-value="650m">650m</td>
+            <td data-sort-value="700m">700m</td>
+            <td data-sort-value="128Mi">128Mi</td>
+            <td data-sort-value="384Mi">384Mi</td>
+            <td data-sort-value="128">128</td>
+            <td data-sort-value="UseParallelGC">UseParallelGC</td>
+
+            <td class="better" data-sort-value="98.29308800639984">
+                ▲ 98.29
+            </td>
+
+            <td class="better" data-sort-value="540.868318737773">
+                ▲ 540.87
+            </td>
+
+            <td class="better" data-sort-value="0.0">
+                ▲ 0.00
+            </td>
+
+            <td class="worse" data-sort-value="384.0">
+                ▼ 384
+            </td>
+
+            <td class="worse" data-sort-value="140.4186971519998">
+                ▼ 140.42
+            </td>
+
+            <td data-sort-value="384128442.58">384128442.58</td>
+            <td data-sort-value="True">True</td>
+        </tr>
+        
+
+        <tr>
+            <td data-sort-value="6">6</td>
+            <td data-sort-value="550m">550m</td>
+            <td data-sort-value="600m">600m</td>
+            <td data-sort-value="256Mi">256Mi</td>
+            <td data-sort-value="384Mi">384Mi</td>
+            <td data-sort-value="256">256</td>
+            <td data-sort-value="UseSerialGC">UseSerialGC</td>
+
+            <td class="better" data-sort-value="100.59565772727274">
+                ▲ 100.60
+            </td>
+
+            <td class="better" data-sort-value="504.34950259678">
+                ▲ 504.35
+            </td>
+
+            <td class="better" data-sort-value="0.0">
+                ▲ 0.00
+            </td>
+
+            <td class="worse" data-sort-value="384.0">
+                ▼ 384
+            </td>
+
+            <td class="worse" data-sort-value="167.65942954545457">
+                ▼ 167.66
+            </td>
+
+            <td data-sort-value="384256403.75">384256403.75</td>
+            <td data-sort-value="True">True</td>
+        </tr>
+        
+
+        <tr>
+            <td data-sort-value="12">12</td>
+            <td data-sort-value="150m">150m</td>
+            <td data-sort-value="800m">800m</td>
+            <td data-sort-value="256Mi">256Mi</td>
+            <td data-sort-value="384Mi">384Mi</td>
+            <td data-sort-value="256">256</td>
+            <td data-sort-value="UseG1GC">UseG1GC</td>
+
+            <td class="better" data-sort-value="100.97272727272728">
+                ▲ 100.97
+            </td>
+
+            <td class="better" data-sort-value="523.3122051834971">
+                ▲ 523.31
+            </td>
+
+            <td class="better" data-sort-value="0.0">
+                ▲ 0.00
+            </td>
+
+            <td class="worse" data-sort-value="384.0">
+                ▼ 384
+            </td>
+
+            <td class="worse" data-sort-value="126.2159090909091">
+                ▼ 126.22
+            </td>
+
+            <td data-sort-value="384256422.34">384256422.34</td>
+            <td data-sort-value="True">True</td>
+        </tr>
+        
+
+        <tr>
+            <td data-sort-value="13">13</td>
+            <td data-sort-value="250m">250m</td>
+            <td data-sort-value="1200m">1200m</td>
+            <td data-sort-value="256Mi">256Mi</td>
+            <td data-sort-value="384Mi">384Mi</td>
+            <td data-sort-value="128">128</td>
+            <td data-sort-value="UseG1GC">UseG1GC</td>
+
+            <td class="better" data-sort-value="98.83478260869566">
+                ▲ 98.83
+            </td>
+
+            <td class="better" data-sort-value="531.0258240106125">
+                ▲ 531.03
+            </td>
+
+            <td class="better" data-sort-value="0.0">
+                ▲ 0.00
+            </td>
+
+            <td class="worse" data-sort-value="384.0">
+                ▼ 384
+            </td>
+
+            <td class="worse" data-sort-value="82.36231884057972">
+                ▼ 82.36
+            </td>
+
+            <td data-sort-value="384256432.19">384256432.19</td>
+            <td data-sort-value="True">True</td>
+        </tr>
+        
+
+        <tr>
+            <td data-sort-value="15">15</td>
+            <td data-sort-value="250m">250m</td>
+            <td data-sort-value="800m">800m</td>
+            <td data-sort-value="256Mi">256Mi</td>
+            <td data-sort-value="384Mi">384Mi</td>
+            <td data-sort-value="256">256</td>
+            <td data-sort-value="UseG1GC">UseG1GC</td>
+
+            <td class="better" data-sort-value="93.1506481818182">
+                ▲ 93.15
+            </td>
+
+            <td class="better" data-sort-value="530.7217317954702">
+                ▲ 530.72
+            </td>
+
+            <td class="better" data-sort-value="0.0">
+                ▲ 0.00
+            </td>
+
+            <td class="worse" data-sort-value="384.0">
+                ▼ 384
+            </td>
+
+            <td class="worse" data-sort-value="116.43831022727274">
+                ▼ 116.44
+            </td>
+
+            <td data-sort-value="384256437.57">384256437.57</td>
+            <td data-sort-value="True">True</td>
+        </tr>
+        
+
+        <tr>
+            <td data-sort-value="8">8</td>
+            <td data-sort-value="250m">250m</td>
+            <td data-sort-value="400m">400m</td>
+            <td data-sort-value="384Mi">384Mi</td>
+            <td data-sort-value="384Mi">384Mi</td>
+            <td data-sort-value="256">256</td>
+            <td data-sort-value="UseSerialGC">UseSerialGC</td>
+
+            <td class="better" data-sort-value="98.01380363636362">
+                ▲ 98.01
+            </td>
+
+            <td class="better" data-sort-value="497.2329010626366">
+                ▲ 497.23
+            </td>
+
+            <td class="better" data-sort-value="0.0">
+                ▲ 0.00
+            </td>
+
+            <td class="worse" data-sort-value="384.0">
+                ▼ 384
+            </td>
+
+            <td class="worse" data-sort-value="245.03450909090904">
+                ▼ 245.03
+            </td>
+
+            <td data-sort-value="384384399.22">384384399.22</td>
+            <td data-sort-value="True">True</td>
+        </tr>
+        
+
+        <tr>
+            <td data-sort-value="2">2</td>
+            <td data-sort-value="50m">50m</td>
+            <td data-sort-value="500m">500m</td>
+            <td data-sort-value="128Mi">128Mi</td>
+            <td data-sort-value="512Mi">512Mi</td>
+            <td data-sort-value="384">384</td>
+            <td data-sort-value="UseParallelGC">UseParallelGC</td>
+
+            <td class="better" data-sort-value="102.94782608695652">
+                ▲ 102.95
+            </td>
+
+            <td class="better" data-sort-value="494.4234395276954">
+                ▲ 494.42
+            </td>
+
+            <td class="better" data-sort-value="0.0">
+                ▲ 0.00
+            </td>
+
+            <td class="worse" data-sort-value="512.0">
+                ▼ 512
+            </td>
+
+            <td class="worse" data-sort-value="205.89565217391305">
+                ▼ 205.90
+            </td>
+
+            <td data-sort-value="512128391.48">512128391.48</td>
+            <td data-sort-value="True">True</td>
+        </tr>
+        
+
+        <tr>
+            <td data-sort-value="4">4</td>
+            <td data-sort-value="50m">50m</td>
+            <td data-sort-value="2000m">2000m</td>
+            <td data-sort-value="256Mi">256Mi</td>
+            <td data-sort-value="512Mi">512Mi</td>
+            <td data-sort-value="384">384</td>
+            <td data-sort-value="UseG1GC">UseG1GC</td>
+
+            <td class="better" data-sort-value="100.80777780303028">
+                ▲ 100.81
+            </td>
+
+            <td class="better" data-sort-value="481.8461957456553">
+                ▲ 481.85
+            </td>
+
+            <td class="better" data-sort-value="0.0">
+                ▲ 0.00
+            </td>
+
+            <td class="worse" data-sort-value="512.0">
+                ▼ 512
+            </td>
+
+            <td class="worse" data-sort-value="50.40388890151514">
+                ▼ 50.40
+            </td>
+
+            <td data-sort-value="512256381.04">512256381.04</td>
+            <td data-sort-value="True">True</td>
+        </tr>
+        
+
+        <tr>
+            <td data-sort-value="14">14</td>
+            <td data-sort-value="150m">150m</td>
+            <td data-sort-value="900m">900m</td>
+            <td data-sort-value="256Mi">256Mi</td>
+            <td data-sort-value="512Mi">512Mi</td>
+            <td data-sort-value="384">384</td>
+            <td data-sort-value="UseG1GC">UseG1GC</td>
+
+            <td class="better" data-sort-value="96.77720462121212">
+                ▲ 96.78
+            </td>
+
+            <td class="better" data-sort-value="498.30328699067223">
+                ▲ 498.30
+            </td>
+
+            <td class="better" data-sort-value="0.0">
+                ▲ 0.00
+            </td>
+
+            <td class="worse" data-sort-value="512.0">
+                ▼ 512
+            </td>
+
+            <td class="worse" data-sort-value="107.53022735690236">
+                ▼ 107.53
+            </td>
+
+            <td data-sort-value="512256401.53">512256401.53</td>
+            <td data-sort-value="True">True</td>
+        </tr>
+        
+
+        <tr>
+            <td data-sort-value="11">11</td>
+            <td data-sort-value="50m">50m</td>
+            <td data-sort-value="300m">300m</td>
+            <td data-sort-value="256Mi">256Mi</td>
+            <td data-sort-value="512Mi">512Mi</td>
+            <td data-sort-value="256">256</td>
+            <td data-sort-value="UseSerialGC">UseSerialGC</td>
+
+            <td class="better" data-sort-value="100.0393612878788">
+                ▲ 100.04
+            </td>
+
+            <td class="better" data-sort-value="504.45848355641766">
+                ▲ 504.46
+            </td>
+
+            <td class="better" data-sort-value="0.0">
+                ▲ 0.00
+            </td>
+
+            <td class="worse" data-sort-value="512.0">
+                ▼ 512
+            </td>
+
+            <td class="better" data-sort-value="333.4645376262627">
+                ▲ 333.46
+            </td>
+
+            <td data-sort-value="512256404.42">512256404.42</td>
+            <td data-sort-value="True">True</td>
+        </tr>
+        
+
+        <tr>
+            <td data-sort-value="1">1</td>
+            <td data-sort-value="50m">50m</td>
+            <td data-sort-value="400m">400m</td>
+            <td data-sort-value="384Mi">384Mi</td>
+            <td data-sort-value="512Mi">512Mi</td>
+            <td data-sort-value="128">128</td>
+            <td data-sort-value="UseSerialGC">UseSerialGC</td>
+
+            <td class="better" data-sort-value="98.6877427272727">
+                ▲ 98.69
+            </td>
+
+            <td class="better" data-sort-value="515.5396326661993">
+                ▲ 515.54
+            </td>
+
+            <td class="better" data-sort-value="0.0">
+                ▲ 0.00
+            </td>
+
+            <td class="worse" data-sort-value="512.0">
+                ▼ 512
+            </td>
+
+            <td class="worse" data-sort-value="246.71935681818175">
+                ▼ 246.72
+            </td>
+
+            <td data-sort-value="512384416.85">512384416.85</td>
+            <td data-sort-value="True">True</td>
+        </tr>
+        
+
+        <tr>
+            <td data-sort-value="0">0</td>
+            <td data-sort-value="200m">200m</td>
+            <td data-sort-value="300m">300m</td>
+            <td data-sort-value="180Mi">180Mi</td>
+            <td data-sort-value="300Mi">300Mi</td>
+            <td data-sort-value="512">512</td>
+            <td data-sort-value="UseSerialGC">UseSerialGC</td>
+
+            <td class="neutral" data-sort-value="88.23700136363635">
+                ● 88.24
+            </td>
+
+            <td class="neutral" data-sort-value="569.7058919366921">
+                ● 569.71
+            </td>
+
+            <td class="neutral" data-sort-value="8.462171804958375">
+                ● 8.46
+            </td>
+
+            <td class="neutral" data-sort-value="300.0">
+                ● 300
+            </td>
+
+            <td class="neutral" data-sort-value="294.1233378787879">
+                ● 294.12
+            </td>
+
+            <td data-sort-value="inf">inf</td>
+            <td data-sort-value="False">False</td>
+        </tr>
+        
+
+        <tr>
+            <td data-sort-value="10">10</td>
+            <td data-sort-value="950m">950m</td>
+            <td data-sort-value="1000m">1000m</td>
+            <td data-sort-value="384Mi">384Mi</td>
+            <td data-sort-value="384Mi">384Mi</td>
+            <td data-sort-value="128">128</td>
+            <td data-sort-value="UseG1GC">UseG1GC</td>
+
+            <td class="neutral" data-sort-value="">
+                ● NA
+            </td>
+
+            <td class="neutral" data-sort-value="">
+                ● NA
+            </td>
+
+            <td class="neutral" data-sort-value="">
+                ● NA
+            </td>
+
+            <td class="worse" data-sort-value="384.0">
+                ▼ 384
+            </td>
+
+            <td class="neutral" data-sort-value="">
+                ● NA
+            </td>
+
+            <td data-sort-value="inf">inf</td>
+            <td data-sort-value="False">False</td>
+        </tr>
+        
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<script>
+
+const iterations = [3, 9, 5, 7, 6, 12, 13, 15, 8, 2, 4, 14, 11, 1, 0, 10];
+const throughputSeries = [96.41668727272724, 94.96837303030304, 95.26791166666666, 98.29308800639984, 100.59565772727274, 100.97272727272728, 98.83478260869566, 93.1506481818182, 98.01380363636362, 102.94782608695652, 100.80777780303028, 96.77720462121212, 100.0393612878788, 98.6877427272727, 88.23700136363635, 0.0];
+const responseSeries = [508.70228957252385, 527.6322110078522, 535.0510160706397, 540.868318737773, 504.34950259678, 523.3122051834971, 531.0258240106125, 530.7217317954702, 497.2329010626366, 494.4234395276954, 481.8461957456553, 498.30328699067223, 504.45848355641766, 515.5396326661993, 569.7058919366921, 0.0];
+const memorySeries = [256.0, 256.0, 256.0, 384.0, 384.0, 384.0, 384.0, 384.0, 384.0, 512.0, 512.0, 512.0, 512.0, 512.0, 300.0, 384.0];
+const cpuEfficiencySeries = [482.0834363636362, 63.31224868686869, 52.92661759259259, 140.4186971519998, 167.65942954545457, 126.2159090909091, 82.36231884057972, 116.43831022727274, 245.03450909090904, 205.89565217391305, 50.40388890151514, 107.53022735690236, 333.4645376262627, 246.71935681818175, 294.1233378787879, 0.0];
+const paretoAllPoints = [{"x": 508.70228957252385, "y": 96.41668727272724, "iteration": 3, "acceptable": true}, {"x": 527.6322110078522, "y": 94.96837303030304, "iteration": 9, "acceptable": true}, {"x": 535.0510160706397, "y": 95.26791166666666, "iteration": 5, "acceptable": true}, {"x": 540.868318737773, "y": 98.29308800639984, "iteration": 7, "acceptable": true}, {"x": 504.34950259678, "y": 100.59565772727274, "iteration": 6, "acceptable": true}, {"x": 523.3122051834971, "y": 100.97272727272728, "iteration": 12, "acceptable": true}, {"x": 531.0258240106125, "y": 98.83478260869566, "iteration": 13, "acceptable": true}, {"x": 530.7217317954702, "y": 93.1506481818182, "iteration": 15, "acceptable": true}, {"x": 497.2329010626366, "y": 98.01380363636362, "iteration": 8, "acceptable": true}, {"x": 494.4234395276954, "y": 102.94782608695652, "iteration": 2, "acceptable": true}, {"x": 481.8461957456553, "y": 100.80777780303028, "iteration": 4, "acceptable": true}, {"x": 498.30328699067223, "y": 96.77720462121212, "iteration": 14, "acceptable": true}, {"x": 504.45848355641766, "y": 100.0393612878788, "iteration": 11, "acceptable": true}, {"x": 515.5396326661993, "y": 98.6877427272727, "iteration": 1, "acceptable": true}, {"x": 569.7058919366921, "y": 88.23700136363635, "iteration": 0, "acceptable": false}];
+const paretoFrontierPoints = [{"x": 481.8461957456553, "y": 100.80777780303028, "iteration": 4}, {"x": 494.4234395276954, "y": 102.94782608695652, "iteration": 2}];
+const memoryGcDatasets = [{"label": "UseG1GC", "data": [{"x": 163.73046875, "y": 96.41668727272724, "iteration": 3}, {"x": 162.84375, "y": 94.96837303030304, "iteration": 9}, {"x": 232.15625, "y": 100.97272727272728, "iteration": 12}, {"x": 162.65625, "y": 98.83478260869566, "iteration": 13}, {"x": 215.12890625, "y": 93.1506481818182, "iteration": 15}, {"x": 295.98046875, "y": 100.80777780303028, "iteration": 4}, {"x": 284.89453125, "y": 96.77720462121212, "iteration": 14}], "backgroundColor": "rgba(54, 162, 235, 0.8)", "borderColor": "rgba(54, 162, 235, 0.8)", "pointRadius": 6, "showLine": false}, {"label": "UseSerialGC", "data": [{"x": 123.08203125, "y": 95.26791166666666, "iteration": 5}, {"x": 160.4140625, "y": 100.59565772727274, "iteration": 6}, {"x": 160.05078125, "y": 98.01380363636362, "iteration": 8}, {"x": 160.83203125, "y": 100.0393612878788, "iteration": 11}, {"x": 123.484375, "y": 98.6877427272727, "iteration": 1}, {"x": 233.703125, "y": 88.23700136363635, "iteration": 0}], "backgroundColor": "rgba(153, 102, 255, 0.8)", "borderColor": "rgba(153, 102, 255, 0.8)", "pointRadius": 6, "showLine": false}, {"label": "UseParallelGC", "data": [{"x": 127.73046875, "y": 98.29308800639984, "iteration": 7}, {"x": 194.5625, "y": 102.94782608695652, "iteration": 2}], "backgroundColor": "rgba(255, 99, 132, 0.8)", "borderColor": "rgba(255, 99, 132, 0.8)", "pointRadius": 6, "showLine": false}];
+
+new Chart(document.getElementById('throughput'), {
+type: 'line',
+data: {
+labels: iterations,
+datasets: [{
+label: 'Throughput',
+data: [96.41668727272724, 94.96837303030304, 95.26791166666666, 98.29308800639984, 100.59565772727274, 100.97272727272728, 98.83478260869566, 93.1506481818182, 98.01380363636362, 102.94782608695652, 100.80777780303028, 96.77720462121212, 100.0393612878788, 98.6877427272727, 88.23700136363635, 0.0],
+borderWidth:2
+}]
+}
+});
+
+new Chart(document.getElementById('response'), {
+type: 'line',
+data: {
+labels: iterations,
+datasets: [{
+label: 'Response Time (ms)',
+data: [508.70228957252385, 527.6322110078522, 535.0510160706397, 540.868318737773, 504.34950259678, 523.3122051834971, 531.0258240106125, 530.7217317954702, 497.2329010626366, 494.4234395276954, 481.8461957456553, 498.30328699067223, 504.45848355641766, 515.5396326661993, 569.7058919366921, 0.0],
+borderWidth:2
+}]
+}
+});
+
+new Chart(document.getElementById('memory'), {
+type: 'line',
+data: {
+labels: iterations,
+datasets: [{
+label: 'Memory Limit (MiB)',
+data: [256.0, 256.0, 256.0, 384.0, 384.0, 384.0, 384.0, 384.0, 384.0, 512.0, 512.0, 512.0, 512.0, 512.0, 300.0, 384.0],
+borderWidth:2
+}]
+}
+});
+
+new Chart(document.getElementById('cpuEfficiency'), {
+    type: 'line',
+    data: {
+        labels: iterations,
+        datasets: [{
+            label: 'CPU Efficiency',
+            data: cpuEfficiencySeries,
+            borderWidth: 2,
+            tension: 0.15
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'CPU Utilization Efficiency by Iteration'
+            }
+        }
+    }
+});
+
+new Chart(document.getElementById('pareto'), {
+    type: 'scatter',
+    data: {
+        datasets: [
+            {
+                label: 'All Iterations',
+                data: paretoAllPoints,
+                pointRadius: 5,
+                showLine: false
+            },
+            {
+                label: 'Pareto Frontier',
+                data: paretoFrontierPoints,
+                pointRadius: 6,
+                borderWidth: 2,
+                showLine: true
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        parsing: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Pareto Frontier: Throughput vs Response Time'
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        const p = context.raw;
+                        const parts = [];
+                        if (p.iteration !== undefined && p.iteration !== null) {
+                            parts.push('Iteration ' + p.iteration);
+                        }
+                        parts.push('Resp: ' + p.x.toFixed(2) + ' ms');
+                        parts.push('Thr: ' + p.y.toFixed(2));
+                        return parts;
+                    }
+                }
+            }
+        },
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Response Time (ms) ↓'
+                }
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Throughput ↑'
+                }
+            }
+        }
+    }
+});
+
+new Chart(document.getElementById('memoryThroughputGc'), {
+    type: 'scatter',
+    data: {
+        datasets: memoryGcDatasets
+    },
+    options: {
+        responsive: true,
+        parsing: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Throughput vs Memory Usage by GC Type'
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        const p = context.raw;
+                        const parts = [];
+                        parts.push(context.dataset.label);
+                        if (p.iteration !== undefined && p.iteration !== null) {
+                            parts.push('Iteration ' + p.iteration);
+                        }
+                        parts.push('Memory: ' + p.x.toFixed(2) + ' MiB');
+                        parts.push('Throughput: ' + p.y.toFixed(2));
+                        return parts;
+                    }
+                }
+            }
+        },
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'memory_usage_mib →'
+                }
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Throughput ↑'
+                }
+            }
+        }
+    }
+});
+
+// Table sorting
+(function() {
+    const table = document.getElementById('iterationTable');
+    const headers = table.querySelectorAll('thead th.sortable');
+    const tbody = table.querySelector('tbody');
+
+    let currentSortColumn = -1;
+    let currentSortDirection = 'asc';
+
+    function resetIndicators() {
+        headers.forEach(th => {
+            const indicator = th.querySelector('.sort-indicator');
+            if (indicator) indicator.textContent = '';
+        });
+    }
+
+    function parseSortValue(value) {
+        if (value === null || value === undefined) return { type: 'string', value: '' };
+
+        const s = String(value).trim();
+        if (s === '' || s.toLowerCase() === 'na') {
+            return { type: 'empty', value: null };
+        }
+
+        const lower = s.toLowerCase();
+        if (lower === 'true') return { type: 'boolean', value: 1 };
+        if (lower === 'false') return { type: 'boolean', value: 0 };
+
+        const num = Number(s);
+        if (!Number.isNaN(num)) {
+            return { type: 'number', value: num };
+        }
+
+        return { type: 'string', value: s.toLowerCase() };
+    }
+
+    function compareValues(a, b, direction) {
+        const av = parseSortValue(a);
+        const bv = parseSortValue(b);
+
+        if (av.type === 'empty' && bv.type === 'empty') return 0;
+        if (av.type === 'empty') return 1;
+        if (bv.type === 'empty') return -1;
+
+        let cmp = 0;
+        if ((av.type === 'number' || av.type === 'boolean') && (bv.type === 'number' || bv.type === 'boolean')) {
+            cmp = av.value - bv.value;
+        } else {
+            cmp = String(av.value).localeCompare(String(bv.value), undefined, { numeric: true, sensitivity: 'base' });
+        }
+
+        return direction === 'asc' ? cmp : -cmp;
+    }
+
+    headers.forEach((header, columnIndex) => {
+        header.addEventListener('click', () => {
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            if (currentSortColumn === columnIndex) {
+                currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSortColumn = columnIndex;
+                currentSortDirection = 'asc';
+            }
+
+            rows.sort((rowA, rowB) => {
+                const cellA = rowA.children[columnIndex];
+                const cellB = rowB.children[columnIndex];
+
+                const valueA = cellA.getAttribute('data-sort-value') ?? cellA.textContent.trim();
+                const valueB = cellB.getAttribute('data-sort-value') ?? cellB.textContent.trim();
+
+                return compareValues(valueA, valueB, currentSortDirection);
+            });
+
+            rows.forEach(row => tbody.appendChild(row));
+
+            resetIndicators();
+            const indicator = header.querySelector('.sort-indicator');
+            if (indicator) {
+                indicator.textContent = currentSortDirection === 'asc' ? '▲' : '▼';
+            }
+        });
+    });
+})();
+
+</script>
+
+</body>
+</html>
