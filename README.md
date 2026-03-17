@@ -54,11 +54,11 @@ In all cases, recommendations are only provided from the pool of 'acceptable' ca
 
 Given the constraint to maintain existing throughput, scoring iterations and acceptable configurations which do so involves both resource requirements and even the resulting effects on response time (from test client's perspective; network latency + server processing).
 
-Primary goal: minimize memory limit.
-Secondary tie-breakers:
-    1. lower memory request
-    2. higher throughput (negative because lower is better)
-    3. lower response time
+    Primary goal: minimize memory limit.
+    Secondary tie-breakers:
+        1. lower memory request
+        2. higher throughput (negative because lower is better)
+        3. lower response time
 
 # Improving Workload 'Unit Cost' to Refine Cloud Spend
 
@@ -103,9 +103,9 @@ In all cases, we should also ensure that we:
 
 **Anticipated outcomes**:
 
-    - Better pod-packing characteristics with predictable unit cost for auto-scale and provisioning pricing models
-    - Cost savings: anecdotal until production proof, however ~10-15% predicted (despite limits increase) given G1GC adjustments and lower avg use
-    - If new compute costs outweigh savings on memory, pod packing consolidations, or autoscaling variability savings, then we know we're at lowest cost to maintain current throughput (a.k.a. 'at capacity'...which itself is not a safe place to be)
+- Better pod-packing characteristics with predictable unit cost for auto-scale and provisioning pricing models
+- Cost savings: anecdotal until production proof, however ~10-15% predicted (despite limits increase) given G1GC adjustments and lower avg use
+- If new compute costs outweigh savings on memory, pod packing consolidations, or autoscaling variability savings, then we know we're at lowest cost to maintain current throughput (a.k.a. 'at capacity'...which itself is not a safe place to be)
 
 > "CPU is generally more expensive than RAM in cloud provisioning, often making up about 88% of the total instance cost compared to 12% for memory. While memory is necessary, compute-optimized instances (high CPU) usually command higher prices per hour than memory-optimized ones, as CPUs are more complex and costly to manufacture." - [Cast.ai](https://cast.ai/blog/how-to-calculate-cpu-vs-memory-costs-for-more-accurate-k8s-cost-monitoring/)
 
@@ -114,7 +114,8 @@ In all cases, we should also ensure that we:
 ## What's Missing from this Research Spike
 
 - CI/CD pipeline script examples, though .py scripts aren't hard to run as shell commands
-- Consolidated
+- Support for other commonly used runtimes (e.g. Node.js)
+- Consolidated...
     - Reporting: Where are we going to store these results for historical comparisons?
     - Comparisons: How do we compare from last known good configuration results?
     - Repeatability: Specialized values, configuration, dashboards, and recommendation analysis for each new service (just Java, not even Node)
@@ -128,7 +129,7 @@ In all cases, we should also ensure that we:
 For additional tuning and diagnostic purposes during testing, the JMX exporter for Prometheus (client) was added to the 'adservice' deployment. This enables tracking of Java garbage collection health as well as many other service-related metrics during testing.
 
 - jvm_gc_collection_seconds_count
-- effective heap use
+- JVM-specific memory an thread use; [good reference on Akamas site](https://docs.akamas.io/akamas-docs/reference/telemetry-metric-mapping/prometheus-metrics-mapping#jvm)
 
 ## Interesting Resources
 
