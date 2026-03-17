@@ -75,7 +75,7 @@ Additionally, instances with smaller provisioning requirements on CPU and memory
 - Baseline (as-is) configuration seem to be arbitrarily set to non-uniform values
     - Current: 200-300m CPU request-limit and 180-300Mi Memory request-limit
 - Test Findings
-    - G1GC (Garbage-first) seems to win slightly over Serial (low-resource environments); Parallel (good for batch processing) should not be used
+    - G1GC (Garbage-first) seems to win slightly over Serial (low-resource environments); Parallel (good for batch processing) only for large pods
     - Constrained CPU results in linear latency (throughput) 90th percentile (user experience)
     - Matching heap configuration to pod resources improves immediate and longer responsiveness
     - Smaller resource requests (smaller pods) better for node-to-pod packing if autoscaling is used
