@@ -75,7 +75,7 @@ class ExperimentConfig:
 
     @property
     def java_opts(self) -> str:
-        return f"-Xms{self.heap_mib}m -Xmx{self.heap_mib}m -XX:+{self.gc_type} -javaagent:/tmp/jmx_prometheus_javaagent-1.5.0.jar=9404:/tmp/jmx.config.yml"
+        return f"-Xms{self.heap_mib}m -Xmx{self.heap_mib}m -XX:+{self.gc_type}" # -javaagent:/tmp/jmx_prometheus_javaagent-1.5.0.jar=9404:/tmp/jmx.config.yml"
 
     @property
     def cpu_request(self) -> str:
