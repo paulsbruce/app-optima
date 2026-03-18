@@ -95,6 +95,8 @@ th.sortable .sort-indicator {
 <li>Total Iterations: 16</li>
 <li>Acceptable Iterations: 14</li>
 <li>Best Iteration: 3</li>
+<li>Started on: <span id="started_on_dt">2026-03-15 09:00:15 </span></li>
+<li>Ended on: <span id="ended_at_dt">2026-03-15 09:35:56 </span></li>
 </ul>
 
 </div>
@@ -792,6 +794,13 @@ th.sortable .sort-indicator {
 
 
 <script>
+
+const localTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+const started_on = new Date(1773579615000);
+document.getElementById('started_on_dt').textContent = started_on.toLocaleString() + " ("+localTimezone+")";
+
+const ended_at = new Date(1773581756000);
+document.getElementById('ended_at_dt').textContent = ended_at.toLocaleString() + " ("+localTimezone+")";
 
 const iterations = [3, 9, 5, 7, 6, 12, 13, 15, 8, 2, 4, 14, 11, 1, 0, 10];
 const throughputSeries = [96.41668727272724, 94.96837303030304, 95.26791166666666, 98.29308800639984, 100.59565772727274, 100.97272727272728, 98.83478260869566, 93.1506481818182, 98.01380363636362, 102.94782608695652, 100.80777780303028, 96.77720462121212, 100.0393612878788, 98.6877427272727, 88.23700136363635, 0.0];

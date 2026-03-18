@@ -1,0 +1,59 @@
+{
+  "total_iterations": 51,
+  "acceptable_iterations": 48,
+  "tests_began_at_epoch": 1773759688.7314973,
+  "tests_ended_at_epoch": 1773788033.6557117,
+  "baseline_config": {
+    "cpu_request_m": 200,
+    "cpu_limit_m": 300,
+    "memory_request_mib": 180,
+    "memory_limit_mib": 300,
+    "heap_mib": 127,
+    "gc_type": "UseG1GC"
+  },
+  "baseline_metrics": {
+    "throughput": null,
+    "response_time_ms": null,
+    "error_rate_pct": null,
+    "cpu_usage_cores": 0.0014015135748746564,
+    "cpu_request_cores": 0.2,
+    "cpu_limit_cores": 0.3,
+    "memory_usage_mib": 316.42578125,
+    "memory_request_mib": 180.0,
+    "memory_limit_mib": 300.0
+  },
+  "best_configuration": {
+    "iteration": 36,
+    "started_at_epoch": 1773779720.1252885,
+    "ended_at_epoch": 1773780274.302975,
+    "duration_seconds": 554.178,
+    "cpu_request": "50m",
+    "cpu_limit": "800m",
+    "memory_request": "128Mi",
+    "memory_limit": "256Mi",
+    "heap_mib": 128,
+    "gc_type": "UseSerialGC",
+    "java_opts": "-Xms128m -Xmx128m -XX:+UseSerialGC",
+    "throughput": 100.03692848484849,
+    "response_time_ms": 558.1742688748693,
+    "error_rate_pct": 0.0,
+    "cpu_usage_cores": 0.02649201206022282,
+    "cpu_request_cores": 0.05,
+    "cpu_limit_cores": 0.8,
+    "memory_usage_mib": 122.96484375,
+    "memory_request_mib": 128.0,
+    "memory_limit_mib": 256.0,
+    "acceptable": true,
+    "objective_score": 256128458.1373404,
+    "rollout_status": "success",
+    "test_status": "success",
+    "notes": ""
+  },
+  "comparison_to_baseline": {
+    "memory_limit_reduction_pct": 14.666666666666666,
+    "memory_request_reduction_pct": 28.888888888888886,
+    "throughput_change_pct": null,
+    "response_time_change_pct": null,
+    "error_rate_change_pct": null
+  }
+}

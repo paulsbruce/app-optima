@@ -1,6 +1,8 @@
 import json
 import pandas as pd
 from pathlib import Path
+import argparse
+import datetime
 
 RESULTS_DIR = Path("results")
 SUMMARY_FILE = RESULTS_DIR / "summary.json"
@@ -423,6 +425,8 @@ th.sortable .sort-indicator {{
 <li>Total Iterations: {summary["total_iterations"]}</li>
 <li>Acceptable Iterations: {summary["acceptable_iterations"]}</li>
 <li>Best Iteration: {best["iteration"]}</li>
+<li>Started on: <span id="started_on_dt">{datetime.datetime.fromtimestamp(summary['tests_began_at_epoch']).strftime("%Y-%m-%d %H:%M:%S %Z%z")}</span></li>
+<li>Ended on: <span id="ended_at_dt">{datetime.datetime.fromtimestamp(summary['tests_ended_at_epoch']).strftime("%Y-%m-%d %H:%M:%S %Z%z")}</span></li>
 </ul>
 
 </div>
@@ -577,6 +581,13 @@ th.sortable .sort-indicator {{
 
 
 <script>
+
+const localTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+const started_on = new Date({int(summary['tests_began_at_epoch']) * 1000});
+document.getElementById('started_on_dt').textContent = started_on.toLocaleString() + " ("+localTimezone+")";
+
+const ended_at = new Date({int(summary['tests_ended_at_epoch']) * 1000});
+document.getElementById('ended_at_dt').textContent = ended_at.toLocaleString() + " ("+localTimezone+")";
 
 const iterations = {iterations};
 const throughputSeries = {json.dumps(throughput_series)};
@@ -844,8 +855,26 @@ new Chart(document.getElementById('memoryThroughputGc'), {{
 
     return html
 
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Report generator for structured optimizer.py results")
+    parser.add_argument("path", type=Path, default="./results", help="A directory path to the results directory as input") 
+    return parser
+
+def validate_args(args: argparse.Namespace) -> None:
+    if not args.path.exists():
+        raise SystemExit("The specified path does not exist.")
 
 def main():
+
+    args = build_parser().parse_args()
+    validate_args(args)
+
+    global SUMMARY_FILE, ITERATIONS_FILE, OUTPUT_HTML, RESULTS_DIR
+
+    RESULTS_DIR = args.path
+    SUMMARY_FILE = RESULTS_DIR / "summary.json"
+    ITERATIONS_FILE = RESULTS_DIR / "iterations.csv"
+    OUTPUT_HTML = RESULTS_DIR / "report.html"
 
     summary, df = load_data()
     html = build_html(summary, df)

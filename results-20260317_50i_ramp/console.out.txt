@@ -1,0 +1,264 @@
+ubuntu@ip-172-31-5-134:~/hiring$ PYTHONUNBUFFERED=1 python3 online_boutique_optimizer.py --namespace akamas-online-boutique --iterations 50 --prometheus-url http://paul.lab.akamas.io:30900
+[2026-03-17 15:01:18] Captured baseline config: ExperimentConfig(cpu_request_m=200, cpu_limit_m=300, memory_request_mib=180, memory_limit_mib=300, heap_mib=127, gc_type='UseG1GC')
+[2026-03-17 15:01:28] Iteration 0/50[baseline]: applying ExperimentConfig(cpu_request_m=200, cpu_limit_m=300, memory_request_mib=180, memory_limit_mib=300, heap_mib=127, gc_type='UseG1GC')
+[2026-03-17 15:01:28] Skipping rollout for baseline config already applied
+[2026-03-17 15:01:28] Running jmeter for iteration 0
+[2026-03-17 15:10:00] Collecting post-test metrics for iteration 0
+[2026-03-17 15:10:00] Iteration 0 results: acceptable=True, score=300180504.9222985, metrics=Metrics(throughput=93.72822196969696, response_time_ms=598.6505204157479, error_rate_pct=0.0, cpu_usage_cores=0.02409242587474824, cpu_request_cores=0.2, cpu_limit_cores=0.3, memory_usage_mib=162.9453125, memory_request_mib=180.0, memory_limit_mib=300.0)
+[2026-03-17 15:10:00] New best acceptable config found at iteration 0
+[2026-03-17 15:10:00] Iteration 1/50: applying ExperimentConfig(cpu_request_m=50, cpu_limit_m=400, memory_request_mib=384, memory_limit_mib=512, heap_mib=128, gc_type='UseSerialGC')
+[2026-03-17 15:10:33] Waiting 10s for metrics to stabilize
+[2026-03-17 15:10:43] Running jmeter for iteration 1
+[2026-03-17 15:19:15] Collecting post-test metrics for iteration 1
+[2026-03-17 15:19:15] Iteration 1 results: acceptable=True, score=512384469.8695085, metrics=Metrics(throughput=98.07366295454545, response_time_ms=567.9431714629471, error_rate_pct=0.0, cpu_usage_cores=0.030998952040438902, cpu_request_cores=0.05, cpu_limit_cores=0.4, memory_usage_mib=123.77734375, memory_request_mib=384.0, memory_limit_mib=512.0)
+[2026-03-17 15:19:15] Iteration 2/50: applying ExperimentConfig(cpu_request_m=50, cpu_limit_m=500, memory_request_mib=128, memory_limit_mib=512, heap_mib=384, gc_type='UseParallelGC')
+[2026-03-17 15:19:47] Waiting 10s for metrics to stabilize
+[2026-03-17 15:19:57] Running jmeter for iteration 2
+[2026-03-17 15:28:29] Collecting post-test metrics for iteration 2
+[2026-03-17 15:28:29] Iteration 2 results: acceptable=True, score=512128455.4070292, metrics=Metrics(throughput=100.04269681818181, response_time_ms=555.4497260317016, error_rate_pct=0.0, cpu_usage_cores=0.023333401850472228, cpu_request_cores=0.05, cpu_limit_cores=0.5, memory_usage_mib=194.50390625, memory_request_mib=128.0, memory_limit_mib=512.0)
+[2026-03-17 15:28:29] Iteration 3/50: applying ExperimentConfig(cpu_request_m=50, cpu_limit_m=200, memory_request_mib=128, memory_limit_mib=256, heap_mib=128, gc_type='UseG1GC')
+[2026-03-17 15:29:01] Waiting 10s for metrics to stabilize
+[2026-03-17 15:29:11] Running jmeter for iteration 3
+[2026-03-17 15:37:43] Collecting post-test metrics for iteration 3
+[2026-03-17 15:37:43] Iteration 3 results: acceptable=True, score=256128479.73034248, metrics=Metrics(throughput=98.3499003030303, response_time_ms=578.0802427839561, error_rate_pct=0.0, cpu_usage_cores=0.024755715570154564, cpu_request_cores=0.05, cpu_limit_cores=0.2, memory_usage_mib=163.8671875, memory_request_mib=128.0, memory_limit_mib=256.0)
+[2026-03-17 15:37:43] New best acceptable config found at iteration 3
+[2026-03-17 15:37:43] Iteration 4/50: applying ExperimentConfig(cpu_request_m=50, cpu_limit_m=2000, memory_request_mib=256, memory_limit_mib=512, heap_mib=384, gc_type='UseG1GC')
+[2026-03-17 15:38:15] Waiting 10s for metrics to stabilize
+[2026-03-17 15:38:25] Running jmeter for iteration 4
+[2026-03-17 15:46:58] Collecting post-test metrics for iteration 4
+[2026-03-17 15:46:58] Iteration 4 results: acceptable=True, score=512256482.7096208, metrics=Metrics(throughput=98.71066181818182, response_time_ms=581.4202825988552, error_rate_pct=0.0, cpu_usage_cores=0.02607405560290892, cpu_request_cores=0.05, cpu_limit_cores=2.0, memory_usage_mib=323.9140625, memory_request_mib=256.0, memory_limit_mib=512.0)
+[2026-03-17 15:46:58] Iteration 5/50: applying ExperimentConfig(cpu_request_m=650, cpu_limit_m=1800, memory_request_mib=256, memory_limit_mib=256, heap_mib=128, gc_type='UseSerialGC')
+[2026-03-17 15:47:30] Waiting 10s for metrics to stabilize
+[2026-03-17 15:47:40] Running jmeter for iteration 5
+[2026-03-17 15:56:12] Collecting post-test metrics for iteration 5
+[2026-03-17 15:56:12] Iteration 5 results: acceptable=True, score=256256504.03336427, metrics=Metrics(throughput=99.14545454545456, response_time_ms=603.1788188094573, error_rate_pct=0.0, cpu_usage_cores=0.026354492066762842, cpu_request_cores=0.65, cpu_limit_cores=1.8, memory_usage_mib=123.10546875, memory_request_mib=256.0, memory_limit_mib=256.0)
+[2026-03-17 15:56:12] Iteration 6/50: applying ExperimentConfig(cpu_request_m=550, cpu_limit_m=600, memory_request_mib=256, memory_limit_mib=384, heap_mib=256, gc_type='UseSerialGC')
+[2026-03-17 15:56:44] Waiting 10s for metrics to stabilize
+[2026-03-17 15:56:54] Running jmeter for iteration 6
+[2026-03-17 16:05:26] Collecting post-test metrics for iteration 6
+[2026-03-17 16:05:26] Iteration 6 results: acceptable=True, score=384256453.49952805, metrics=Metrics(throughput=103.8086956521739, response_time_ms=557.3082237092614, error_rate_pct=0.0, cpu_usage_cores=0.028841780645635726, cpu_request_cores=0.55, cpu_limit_cores=0.6, memory_usage_mib=160.5546875, memory_request_mib=256.0, memory_limit_mib=384.0)
+[2026-03-17 16:05:26] Iteration 7/50: applying ExperimentConfig(cpu_request_m=650, cpu_limit_m=700, memory_request_mib=128, memory_limit_mib=384, heap_mib=128, gc_type='UseParallelGC')
+[2026-03-17 16:05:58] Waiting 10s for metrics to stabilize
+[2026-03-17 16:06:08] Running jmeter for iteration 7
+[2026-03-17 16:14:41] Collecting post-test metrics for iteration 7
+[2026-03-17 16:14:41] Iteration 7 results: acceptable=True, score=384128495.43834484, metrics=Metrics(throughput=94.54713068181819, response_time_ms=589.9854755520485, error_rate_pct=0.0, cpu_usage_cores=0.024888740000403024, cpu_request_cores=0.65, cpu_limit_cores=0.7, memory_usage_mib=127.24609375, memory_request_mib=128.0, memory_limit_mib=384.0)
+[2026-03-17 16:14:41] Iteration 8/50: applying ExperimentConfig(cpu_request_m=250, cpu_limit_m=400, memory_request_mib=384, memory_limit_mib=384, heap_mib=256, gc_type='UseSerialGC')
+[2026-03-17 16:15:13] Waiting 10s for metrics to stabilize
+[2026-03-17 16:15:23] Running jmeter for iteration 8
+[2026-03-17 16:23:55] Collecting post-test metrics for iteration 8
+[2026-03-17 16:23:55] Iteration 8 results: acceptable=True, score=384384476.66716933, metrics=Metrics(throughput=97.34507113636363, response_time_ms=574.0122404550509, error_rate_pct=0.0, cpu_usage_cores=0.025198764503836363, cpu_request_cores=0.25, cpu_limit_cores=0.4, memory_usage_mib=160.73046875, memory_request_mib=384.0, memory_limit_mib=384.0)
+[2026-03-17 16:23:55] Iteration 9/50: applying ExperimentConfig(cpu_request_m=850, cpu_limit_m=1500, memory_request_mib=256, memory_limit_mib=256, heap_mib=128, gc_type='UseG1GC')
+[2026-03-17 16:24:27] Waiting 10s for metrics to stabilize
+[2026-03-17 16:24:37] Running jmeter for iteration 9
+[2026-03-17 16:33:09] Collecting post-test metrics for iteration 9
+[2026-03-17 16:33:09] Iteration 9 results: acceptable=True, score=256256497.09366512, metrics=Metrics(throughput=95.59064795454546, response_time_ms=592.6843130961173, error_rate_pct=0.0, cpu_usage_cores=0.027741841290044825, cpu_request_cores=0.85, cpu_limit_cores=1.5, memory_usage_mib=163.7734375, memory_request_mib=256.0, memory_limit_mib=256.0)
+[2026-03-17 16:33:09] Iteration 10/50: applying ExperimentConfig(cpu_request_m=950, cpu_limit_m=1000, memory_request_mib=384, memory_limit_mib=384, heap_mib=128, gc_type='UseG1GC')
+[2026-03-17 16:33:41] Waiting 10s for metrics to stabilize
+[2026-03-17 16:33:51] Running jmeter for iteration 10
+[2026-03-17 16:43:51] JMeter failure: Command timed out after 600s: ./scripts/run_jmeter.sh
+[2026-03-17 16:43:51] Collecting post-test metrics for iteration 10
+[2026-03-17 16:43:51] Iteration 10 results: acceptable=False, score=inf, metrics=Metrics(throughput=None, response_time_ms=None, error_rate_pct=None, cpu_usage_cores=0.0016312708785803987, cpu_request_cores=0.95, cpu_limit_cores=1.0, memory_usage_mib=97.984375, memory_request_mib=384.0, memory_limit_mib=384.0)
+[2026-03-17 16:43:51] Iteration 11/50: applying ExperimentConfig(cpu_request_m=50, cpu_limit_m=300, memory_request_mib=256, memory_limit_mib=512, heap_mib=256, gc_type='UseSerialGC')
+[2026-03-17 16:44:24] Waiting 10s for metrics to stabilize
+[2026-03-17 16:44:34] Running jmeter for iteration 11
+[2026-03-17 16:53:36] Collecting post-test metrics for iteration 11
+[2026-03-17 16:53:36] Iteration 11 results: acceptable=True, score=512256494.61029017, metrics=Metrics(throughput=99.65217391304348, response_time_ms=594.2624640880217, error_rate_pct=0.0, cpu_usage_cores=0.027544194318341365, cpu_request_cores=0.05, cpu_limit_cores=0.3, memory_usage_mib=163.66796875, memory_request_mib=256.0, memory_limit_mib=512.0)
+[2026-03-17 16:53:36] Iteration 12/50: applying ExperimentConfig(cpu_request_m=150, cpu_limit_m=800, memory_request_mib=256, memory_limit_mib=384, heap_mib=256, gc_type='UseG1GC')
+[2026-03-17 16:54:08] Waiting 10s for metrics to stabilize
+[2026-03-17 16:54:18] Running jmeter for iteration 12
+[2026-03-17 17:02:51] Collecting post-test metrics for iteration 12
+[2026-03-17 17:02:51] Iteration 12 results: acceptable=True, score=384256509.68541837, metrics=Metrics(throughput=92.72835969696972, response_time_ms=602.4137780919019, error_rate_pct=0.0, cpu_usage_cores=0.02357462218750301, cpu_request_cores=0.15, cpu_limit_cores=0.8, memory_usage_mib=249.67578125, memory_request_mib=256.0, memory_limit_mib=384.0)
+[2026-03-17 17:02:51] Iteration 13/50: applying ExperimentConfig(cpu_request_m=250, cpu_limit_m=1200, memory_request_mib=256, memory_limit_mib=384, heap_mib=128, gc_type='UseG1GC')
+[2026-03-17 17:03:23] Waiting 10s for metrics to stabilize
+[2026-03-17 17:03:33] Running jmeter for iteration 13
+[2026-03-17 17:12:05] Collecting post-test metrics for iteration 13
+[2026-03-17 17:12:05] Iteration 13 results: acceptable=True, score=384256480.13268393, metrics=Metrics(throughput=96.7755, response_time_ms=576.9081839150883, error_rate_pct=0.0, cpu_usage_cores=0.02517121266859342, cpu_request_cores=0.25, cpu_limit_cores=1.2, memory_usage_mib=163.58203125, memory_request_mib=256.0, memory_limit_mib=384.0)
+[2026-03-17 17:12:05] Iteration 14/50: applying ExperimentConfig(cpu_request_m=150, cpu_limit_m=900, memory_request_mib=256, memory_limit_mib=512, heap_mib=384, gc_type='UseG1GC')
+[2026-03-17 17:12:37] Waiting 10s for metrics to stabilize
+[2026-03-17 17:12:47] Running jmeter for iteration 14
+[2026-03-17 17:21:19] Collecting post-test metrics for iteration 14
+[2026-03-17 17:21:19] Iteration 14 results: acceptable=True, score=512256463.2402059, metrics=Metrics(throughput=99.56217499999998, response_time_ms=562.8023808878081, error_rate_pct=0.0, cpu_usage_cores=0.026793243191334064, cpu_request_cores=0.15, cpu_limit_cores=0.9, memory_usage_mib=304.95703125, memory_request_mib=256.0, memory_limit_mib=512.0)
+[2026-03-17 17:21:19] Iteration 15/50: applying ExperimentConfig(cpu_request_m=250, cpu_limit_m=800, memory_request_mib=256, memory_limit_mib=384, heap_mib=256, gc_type='UseG1GC')
+[2026-03-17 17:21:51] Waiting 10s for metrics to stabilize
+[2026-03-17 17:22:01] Running jmeter for iteration 15
+[2026-03-17 17:30:34] Collecting post-test metrics for iteration 15
+[2026-03-17 17:30:34] Iteration 15 results: acceptable=True, score=384256448.78061277, metrics=Metrics(throughput=101.2971272727273, response_time_ms=550.0777400235368, error_rate_pct=0.0, cpu_usage_cores=0.03307011819164881, cpu_request_cores=0.25, cpu_limit_cores=0.8, memory_usage_mib=248.76171875, memory_request_mib=256.0, memory_limit_mib=384.0)
+[2026-03-17 17:30:34] Iteration 16/50: applying ExperimentConfig(cpu_request_m=350, cpu_limit_m=1800, memory_request_mib=384, memory_limit_mib=512, heap_mib=128, gc_type='UseSerialGC')
+[2026-03-17 17:31:06] Waiting 10s for metrics to stabilize
+[2026-03-17 17:31:16] Running jmeter for iteration 16
+[2026-03-17 17:39:48] Collecting post-test metrics for iteration 16
+[2026-03-17 17:39:48] Iteration 16 results: acceptable=True, score=512384527.3110034, metrics=Metrics(throughput=94.32710227272729, response_time_ms=621.6381056121498, error_rate_pct=0.0, cpu_usage_cores=0.023933688376410803, cpu_request_cores=0.35, cpu_limit_cores=1.8, memory_usage_mib=123.703125, memory_request_mib=384.0, memory_limit_mib=512.0)
+[2026-03-17 17:39:48] Iteration 17/50: applying ExperimentConfig(cpu_request_m=150, cpu_limit_m=200, memory_request_mib=256, memory_limit_mib=384, heap_mib=128, gc_type='UseSerialGC')
+[2026-03-17 17:40:20] Waiting 10s for metrics to stabilize
+[2026-03-17 17:40:30] Running jmeter for iteration 17
+[2026-03-17 17:49:02] Collecting post-test metrics for iteration 17
+[2026-03-17 17:49:02] Iteration 17 results: acceptable=True, score=384256494.95907176, metrics=Metrics(throughput=99.75454545454545, response_time_ms=594.7136171786924, error_rate_pct=0.0, cpu_usage_cores=0.022356994846734545, cpu_request_cores=0.15, cpu_limit_cores=0.2, memory_usage_mib=123.296875, memory_request_mib=256.0, memory_limit_mib=384.0)
+[2026-03-17 17:49:02] Iteration 18/50: applying ExperimentConfig(cpu_request_m=550, cpu_limit_m=1900, memory_request_mib=256, memory_limit_mib=256, heap_mib=128, gc_type='UseG1GC')
+[2026-03-17 17:49:34] Waiting 10s for metrics to stabilize
+[2026-03-17 17:49:44] Running jmeter for iteration 18
+[2026-03-17 17:58:16] Collecting post-test metrics for iteration 18
+[2026-03-17 17:58:16] Iteration 18 results: acceptable=True, score=256256520.66952127, metrics=Metrics(throughput=97.37391304347827, response_time_ms=618.0434343251703, error_rate_pct=0.0, cpu_usage_cores=0.028755440174933283, cpu_request_cores=0.55, cpu_limit_cores=1.9, memory_usage_mib=163.2578125, memory_request_mib=256.0, memory_limit_mib=256.0)
+[2026-03-17 17:58:16] Iteration 19/50: applying ExperimentConfig(cpu_request_m=250, cpu_limit_m=1500, memory_request_mib=128, memory_limit_mib=384, heap_mib=128, gc_type='UseG1GC')
+[2026-03-17 17:58:48] Waiting 10s for metrics to stabilize
+[2026-03-17 17:58:58] Running jmeter for iteration 19
+[2026-03-17 18:07:31] Collecting post-test metrics for iteration 19
+[2026-03-17 18:07:31] Iteration 19 results: acceptable=True, score=384128469.9462869, metrics=Metrics(throughput=97.455275, response_time_ms=567.4015619446105, error_rate_pct=0.0, cpu_usage_cores=0.027684839425884154, cpu_request_cores=0.25, cpu_limit_cores=1.5, memory_usage_mib=163.51171875, memory_request_mib=128.0, memory_limit_mib=384.0)
+[2026-03-17 18:07:31] Iteration 20/50: applying ExperimentConfig(cpu_request_m=850, cpu_limit_m=1800, memory_request_mib=384, memory_limit_mib=384, heap_mib=256, gc_type='UseG1GC')
+[2026-03-17 18:08:03] Waiting 10s for metrics to stabilize
+[2026-03-17 18:08:13] Running jmeter for iteration 20
+[2026-03-17 18:16:44] Collecting post-test metrics for iteration 20
+[2026-03-17 18:16:44] Iteration 20 results: acceptable=True, score=384384498.9089202, metrics=Metrics(throughput=95.75729499999998, response_time_ms=594.6662152120108, error_rate_pct=0.0, cpu_usage_cores=0.025677786263428537, cpu_request_cores=0.85, cpu_limit_cores=1.8, memory_usage_mib=257.21484375, memory_request_mib=384.0, memory_limit_mib=384.0)
+[2026-03-17 18:16:44] Iteration 21/50: applying ExperimentConfig(cpu_request_m=550, cpu_limit_m=1300, memory_request_mib=128, memory_limit_mib=256, heap_mib=128, gc_type='UseSerialGC')
+[2026-03-17 18:17:16] Waiting 10s for metrics to stabilize
+[2026-03-17 18:17:26] Running jmeter for iteration 21
+[2026-03-17 18:25:58] Collecting post-test metrics for iteration 21
+[2026-03-17 18:25:58] Iteration 21 results: acceptable=True, score=256128512.48221612, metrics=Metrics(throughput=94.93420340909091, response_time_ms=607.4164195443369, error_rate_pct=0.0, cpu_usage_cores=0.02747666936101867, cpu_request_cores=0.55, cpu_limit_cores=1.3, memory_usage_mib=122.8671875, memory_request_mib=128.0, memory_limit_mib=256.0)
+[2026-03-17 18:25:58] Iteration 22/50: applying ExperimentConfig(cpu_request_m=50, cpu_limit_m=200, memory_request_mib=128, memory_limit_mib=256, heap_mib=128, gc_type='UseG1GC')
+[2026-03-17 18:26:31] Waiting 10s for metrics to stabilize
+[2026-03-17 18:26:41] Running jmeter for iteration 22
+[2026-03-17 18:35:13] Collecting post-test metrics for iteration 22
+[2026-03-17 18:35:13] Iteration 22 results: acceptable=True, score=256128502.184151, metrics=Metrics(throughput=97.51034363636363, response_time_ms=599.6944946261269, error_rate_pct=0.0, cpu_usage_cores=0.021907848912762394, cpu_request_cores=0.05, cpu_limit_cores=0.2, memory_usage_mib=163.25390625, memory_request_mib=128.0, memory_limit_mib=256.0)
+[2026-03-17 18:35:13] Iteration 23/50: applying ExperimentConfig(cpu_request_m=150, cpu_limit_m=300, memory_request_mib=384, memory_limit_mib=384, heap_mib=256, gc_type='UseG1GC')
+[2026-03-17 18:35:45] Waiting 10s for metrics to stabilize
+[2026-03-17 18:35:55] Running jmeter for iteration 23
+[2026-03-17 18:44:27] Collecting post-test metrics for iteration 23
+[2026-03-17 18:44:27] Iteration 23 results: acceptable=True, score=384384506.93820447, metrics=Metrics(throughput=99.53636363636363, response_time_ms=606.474568144455, error_rate_pct=0.0, cpu_usage_cores=0.029854152128401954, cpu_request_cores=0.15, cpu_limit_cores=0.3, memory_usage_mib=249.1484375, memory_request_mib=384.0, memory_limit_mib=384.0)
+[2026-03-17 18:44:27] Iteration 24/50: applying ExperimentConfig(cpu_request_m=850, cpu_limit_m=900, memory_request_mib=128, memory_limit_mib=256, heap_mib=128, gc_type='UseG1GC')
+[2026-03-17 18:44:59] Waiting 10s for metrics to stabilize
+[2026-03-17 18:45:09] Running jmeter for iteration 24
+[2026-03-17 18:53:41] Collecting post-test metrics for iteration 24
+[2026-03-17 18:53:41] Iteration 24 results: acceptable=True, score=256128500.9073183, metrics=Metrics(throughput=99.26086956521739, response_time_ms=600.1681878514727, error_rate_pct=0.0, cpu_usage_cores=0.023828863471736562, cpu_request_cores=0.85, cpu_limit_cores=0.9, memory_usage_mib=163.46875, memory_request_mib=128.0, memory_limit_mib=256.0)
+[2026-03-17 18:53:41] Iteration 25/50: applying ExperimentConfig(cpu_request_m=150, cpu_limit_m=1100, memory_request_mib=256, memory_limit_mib=384, heap_mib=128, gc_type='UseParallelGC')
+[2026-03-17 18:54:13] Waiting 10s for metrics to stabilize
+[2026-03-17 18:54:23] Running jmeter for iteration 25
+[2026-03-17 19:02:55] Collecting post-test metrics for iteration 25
+[2026-03-17 19:02:55] Iteration 25 results: acceptable=True, score=384256562.0540255, metrics=Metrics(throughput=88.65541151515151, response_time_ms=650.7094369835872, error_rate_pct=0.0, cpu_usage_cores=0.02400189228672557, cpu_request_cores=0.15, cpu_limit_cores=1.1, memory_usage_mib=128.52734375, memory_request_mib=256.0, memory_limit_mib=384.0)
+[2026-03-17 19:02:55] Iteration 26/50: applying ExperimentConfig(cpu_request_m=50, cpu_limit_m=100, memory_request_mib=256, memory_limit_mib=512, heap_mib=384, gc_type='UseSerialGC')
+[2026-03-17 19:03:28] Waiting 10s for metrics to stabilize
+[2026-03-17 19:03:38] Running jmeter for iteration 26
+[2026-03-17 19:12:11] Collecting post-test metrics for iteration 26
+[2026-03-17 19:12:11] Iteration 26 results: acceptable=True, score=512256542.91676843, metrics=Metrics(throughput=90.58418666666667, response_time_ms=633.5009551211888, error_rate_pct=0.0, cpu_usage_cores=0.020626706503350557, cpu_request_cores=0.05, cpu_limit_cores=0.1, memory_usage_mib=194.84765625, memory_request_mib=256.0, memory_limit_mib=512.0)
+[2026-03-17 19:12:11] Iteration 27/50: applying ExperimentConfig(cpu_request_m=850, cpu_limit_m=1000, memory_request_mib=256, memory_limit_mib=512, heap_mib=128, gc_type='UseParallelGC')
+[2026-03-17 19:12:43] Waiting 10s for metrics to stabilize
+[2026-03-17 19:12:53] Running jmeter for iteration 27
+[2026-03-17 19:21:25] Collecting post-test metrics for iteration 27
+[2026-03-17 19:21:25] Iteration 27 results: acceptable=True, score=512256567.5457404, metrics=Metrics(throughput=88.83643363636364, response_time_ms=656.3821740719698, error_rate_pct=0.0, cpu_usage_cores=0.026130348211308524, cpu_request_cores=0.85, cpu_limit_cores=1.0, memory_usage_mib=127.3125, memory_request_mib=256.0, memory_limit_mib=512.0)
+[2026-03-17 19:21:25] Iteration 28/50: applying ExperimentConfig(cpu_request_m=450, cpu_limit_m=600, memory_request_mib=128, memory_limit_mib=512, heap_mib=384, gc_type='UseParallelGC')
+[2026-03-17 19:21:57] Waiting 10s for metrics to stabilize
+[2026-03-17 19:22:07] Running jmeter for iteration 28
+[2026-03-17 19:30:39] Collecting post-test metrics for iteration 28
+[2026-03-17 19:30:39] Iteration 28 results: acceptable=True, score=512128516.9382707, metrics=Metrics(throughput=94.14791992424243, response_time_ms=611.0861906119546, error_rate_pct=0.0, cpu_usage_cores=0.023850705904331505, cpu_request_cores=0.45, cpu_limit_cores=0.6, memory_usage_mib=194.7890625, memory_request_mib=128.0, memory_limit_mib=512.0)
+[2026-03-17 19:30:39] Iteration 29/50: applying ExperimentConfig(cpu_request_m=50, cpu_limit_m=1600, memory_request_mib=256, memory_limit_mib=256, heap_mib=128, gc_type='UseSerialGC')
+[2026-03-17 19:31:11] Waiting 10s for metrics to stabilize
+[2026-03-17 19:31:21] Running jmeter for iteration 29
+[2026-03-17 19:39:53] Collecting post-test metrics for iteration 29
+[2026-03-17 19:39:53] Iteration 29 results: acceptable=False, score=inf, metrics=Metrics(throughput=74.23663333333334, response_time_ms=675.3790927916909, error_rate_pct=31.05528335926559, cpu_usage_cores=0.023063377602088778, cpu_request_cores=0.05, cpu_limit_cores=1.6, memory_usage_mib=123.046875, memory_request_mib=256.0, memory_limit_mib=256.0)
+[2026-03-17 19:39:53] Iteration 30/50: applying ExperimentConfig(cpu_request_m=50, cpu_limit_m=200, memory_request_mib=128, memory_limit_mib=512, heap_mib=128, gc_type='UseG1GC')
+[2026-03-17 19:40:26] Waiting 10s for metrics to stabilize
+[2026-03-17 19:40:36] Running jmeter for iteration 30
+[2026-03-17 19:49:08] Collecting post-test metrics for iteration 30
+[2026-03-17 19:49:08] Iteration 30 results: acceptable=True, score=512128483.96160936, metrics=Metrics(throughput=97.71618575757576, response_time_ms=581.6777951091248, error_rate_pct=0.0, cpu_usage_cores=0.020919050281227612, cpu_request_cores=0.05, cpu_limit_cores=0.2, memory_usage_mib=163.76953125, memory_request_mib=128.0, memory_limit_mib=512.0)
+[2026-03-17 19:49:08] Iteration 31/50: applying ExperimentConfig(cpu_request_m=150, cpu_limit_m=1600, memory_request_mib=256, memory_limit_mib=512, heap_mib=128, gc_type='UseG1GC')
+[2026-03-17 19:49:40] Waiting 10s for metrics to stabilize
+[2026-03-17 19:49:50] Running jmeter for iteration 31
+[2026-03-17 19:58:22] Collecting post-test metrics for iteration 31
+[2026-03-17 19:58:22] Iteration 31 results: acceptable=True, score=512256494.8164781, metrics=Metrics(throughput=100.45454545454544, response_time_ms=595.2710235015194, error_rate_pct=0.0, cpu_usage_cores=0.02438284874420093, cpu_request_cores=0.15, cpu_limit_cores=1.6, memory_usage_mib=163.28125, memory_request_mib=256.0, memory_limit_mib=512.0)
+[2026-03-17 19:58:22] Iteration 32/50: applying ExperimentConfig(cpu_request_m=850, cpu_limit_m=1600, memory_request_mib=256, memory_limit_mib=256, heap_mib=128, gc_type='UseSerialGC')
+[2026-03-17 19:58:54] Waiting 10s for metrics to stabilize
+[2026-03-17 19:59:04] Running jmeter for iteration 32
+[2026-03-17 20:07:37] Collecting post-test metrics for iteration 32
+[2026-03-17 20:07:37] Iteration 32 results: acceptable=True, score=256256471.43835387, metrics=Metrics(throughput=102.0, response_time_ms=573.4383538618008, error_rate_pct=0.0, cpu_usage_cores=0.02942869672756617, cpu_request_cores=0.85, cpu_limit_cores=1.6, memory_usage_mib=123.21875, memory_request_mib=256.0, memory_limit_mib=256.0)
+[2026-03-17 20:07:37] Iteration 33/50: applying ExperimentConfig(cpu_request_m=350, cpu_limit_m=1800, memory_request_mib=384, memory_limit_mib=512, heap_mib=256, gc_type='UseG1GC')
+[2026-03-17 20:08:09] Waiting 10s for metrics to stabilize
+[2026-03-17 20:08:19] Running jmeter for iteration 33
+[2026-03-17 20:16:51] Collecting post-test metrics for iteration 33
+[2026-03-17 20:16:51] Iteration 33 results: acceptable=True, score=512384510.4062112, metrics=Metrics(throughput=92.5180681818182, response_time_ms=602.9242793966249, error_rate_pct=0.0, cpu_usage_cores=0.024720784610277033, cpu_request_cores=0.35, cpu_limit_cores=1.8, memory_usage_mib=248.33203125, memory_request_mib=384.0, memory_limit_mib=512.0)
+[2026-03-17 20:16:51] Iteration 34/50: applying ExperimentConfig(cpu_request_m=750, cpu_limit_m=1200, memory_request_mib=512, memory_limit_mib=512, heap_mib=128, gc_type='UseSerialGC')
+[2026-03-17 20:17:23] Waiting 10s for metrics to stabilize
+[2026-03-17 20:17:33] Running jmeter for iteration 34
+[2026-03-17 20:26:05] Collecting post-test metrics for iteration 34
+[2026-03-17 20:26:05] Iteration 34 results: acceptable=True, score=512512450.5092706, metrics=Metrics(throughput=99.7061318181818, response_time_ms=550.2154024445897, error_rate_pct=0.0, cpu_usage_cores=0.025562825502987774, cpu_request_cores=0.75, cpu_limit_cores=1.2, memory_usage_mib=123.53125, memory_request_mib=512.0, memory_limit_mib=512.0)
+[2026-03-17 20:26:05] Iteration 35/50: applying ExperimentConfig(cpu_request_m=150, cpu_limit_m=800, memory_request_mib=128, memory_limit_mib=384, heap_mib=128, gc_type='UseG1GC')
+[2026-03-17 20:26:37] Waiting 10s for metrics to stabilize
+[2026-03-17 20:26:47] Running jmeter for iteration 35
+[2026-03-17 20:35:20] Collecting post-test metrics for iteration 35
+[2026-03-17 20:35:20] Iteration 35 results: acceptable=True, score=384128453.03731424, metrics=Metrics(throughput=100.14347636363638, response_time_ms=553.1807905798033, error_rate_pct=0.0, cpu_usage_cores=0.02238307428506955, cpu_request_cores=0.15, cpu_limit_cores=0.8, memory_usage_mib=164.2890625, memory_request_mib=128.0, memory_limit_mib=384.0)
+[2026-03-17 20:35:20] Iteration 36/50: applying ExperimentConfig(cpu_request_m=50, cpu_limit_m=800, memory_request_mib=128, memory_limit_mib=256, heap_mib=128, gc_type='UseSerialGC')
+[2026-03-17 20:35:52] Waiting 10s for metrics to stabilize
+[2026-03-17 20:36:02] Running jmeter for iteration 36
+[2026-03-17 20:44:34] Collecting post-test metrics for iteration 36
+[2026-03-17 20:44:34] Iteration 36 results: acceptable=True, score=256128458.1373404, metrics=Metrics(throughput=100.03692848484849, response_time_ms=558.1742688748693, error_rate_pct=0.0, cpu_usage_cores=0.02649201206022282, cpu_request_cores=0.05, cpu_limit_cores=0.8, memory_usage_mib=122.96484375, memory_request_mib=128.0, memory_limit_mib=256.0)
+[2026-03-17 20:44:34] New best acceptable config found at iteration 36
+[2026-03-17 20:44:34] Iteration 37/50: applying ExperimentConfig(cpu_request_m=150, cpu_limit_m=200, memory_request_mib=128, memory_limit_mib=256, heap_mib=128, gc_type='UseG1GC')
+[2026-03-17 20:45:06] Waiting 10s for metrics to stabilize
+[2026-03-17 20:45:16] Running jmeter for iteration 37
+[2026-03-17 20:53:48] Collecting post-test metrics for iteration 37
+[2026-03-17 20:53:48] Iteration 37 results: acceptable=False, score=inf, metrics=Metrics(throughput=81.16980295454546, response_time_ms=617.4050833240509, error_rate_pct=25.664822899538713, cpu_usage_cores=0.020364244765216807, cpu_request_cores=0.15, cpu_limit_cores=0.2, memory_usage_mib=164.21484375, memory_request_mib=128.0, memory_limit_mib=256.0)
+[2026-03-17 20:53:48] Iteration 38/50: applying ExperimentConfig(cpu_request_m=350, cpu_limit_m=1600, memory_request_mib=256, memory_limit_mib=512, heap_mib=384, gc_type='UseG1GC')
+[2026-03-17 20:54:20] Waiting 10s for metrics to stabilize
+[2026-03-17 20:54:30] Running jmeter for iteration 38
+[2026-03-17 21:03:03] Collecting post-test metrics for iteration 38
+[2026-03-17 21:03:03] Iteration 38 results: acceptable=True, score=512256482.0828247, metrics=Metrics(throughput=98.37875, response_time_ms=580.4615747065802, error_rate_pct=0.0, cpu_usage_cores=0.02763811257223463, cpu_request_cores=0.35, cpu_limit_cores=1.6, memory_usage_mib=323.1875, memory_request_mib=256.0, memory_limit_mib=512.0)
+[2026-03-17 21:03:03] Iteration 39/50: applying ExperimentConfig(cpu_request_m=750, cpu_limit_m=1900, memory_request_mib=256, memory_limit_mib=256, heap_mib=128, gc_type='UseSerialGC')
+[2026-03-17 21:03:35] Waiting 10s for metrics to stabilize
+[2026-03-17 21:03:45] Running jmeter for iteration 39
+[2026-03-17 21:12:17] Collecting post-test metrics for iteration 39
+[2026-03-17 21:12:18] Iteration 39 results: acceptable=True, score=256256476.12918082, metrics=Metrics(throughput=99.539605, response_time_ms=575.6687858155587, error_rate_pct=0.0, cpu_usage_cores=0.03496299496772226, cpu_request_cores=0.75, cpu_limit_cores=1.9, memory_usage_mib=123.4765625, memory_request_mib=256.0, memory_limit_mib=256.0)
+[2026-03-17 21:12:18] Iteration 40/50: applying ExperimentConfig(cpu_request_m=50, cpu_limit_m=400, memory_request_mib=512, memory_limit_mib=512, heap_mib=256, gc_type='UseParallelGC')
+[2026-03-17 21:12:50] Waiting 10s for metrics to stabilize
+[2026-03-17 21:13:00] Running jmeter for iteration 40
+[2026-03-17 21:21:32] Collecting post-test metrics for iteration 40
+[2026-03-17 21:21:32] Iteration 40 results: acceptable=True, score=512512446.2897716, metrics=Metrics(throughput=105.07826086956521, response_time_ms=551.3680325386072, error_rate_pct=0.0, cpu_usage_cores=0.02561395516791199, cpu_request_cores=0.05, cpu_limit_cores=0.4, memory_usage_mib=167.2734375, memory_request_mib=512.0, memory_limit_mib=512.0)
+[2026-03-17 21:21:32] Iteration 41/50: applying ExperimentConfig(cpu_request_m=750, cpu_limit_m=1400, memory_request_mib=128, memory_limit_mib=512, heap_mib=384, gc_type='UseG1GC')
+[2026-03-17 21:22:04] Waiting 10s for metrics to stabilize
+[2026-03-17 21:22:14] Running jmeter for iteration 41
+[2026-03-17 21:30:45] Collecting post-test metrics for iteration 41
+[2026-03-17 21:30:45] Iteration 41 results: acceptable=True, score=512128485.8907537, metrics=Metrics(throughput=96.33842045454546, response_time_ms=582.2291741323546, error_rate_pct=0.0, cpu_usage_cores=0.024505466778805725, cpu_request_cores=0.75, cpu_limit_cores=1.4, memory_usage_mib=326.8046875, memory_request_mib=128.0, memory_limit_mib=512.0)
+[2026-03-17 21:30:45] Iteration 42/50: applying ExperimentConfig(cpu_request_m=50, cpu_limit_m=400, memory_request_mib=384, memory_limit_mib=384, heap_mib=256, gc_type='UseSerialGC')
+[2026-03-17 21:31:17] Waiting 10s for metrics to stabilize
+[2026-03-17 21:31:27] Running jmeter for iteration 42
+[2026-03-17 21:39:59] Collecting post-test metrics for iteration 42
+[2026-03-17 21:39:59] Iteration 42 results: acceptable=True, score=384384444.16070527, metrics=Metrics(throughput=101.29197272727274, response_time_ms=545.4526780100009, error_rate_pct=0.0, cpu_usage_cores=0.028587914559411943, cpu_request_cores=0.05, cpu_limit_cores=0.4, memory_usage_mib=160.34765625, memory_request_mib=384.0, memory_limit_mib=384.0)
+[2026-03-17 21:39:59] Iteration 43/50: applying ExperimentConfig(cpu_request_m=350, cpu_limit_m=800, memory_request_mib=256, memory_limit_mib=256, heap_mib=128, gc_type='UseParallelGC')
+[2026-03-17 21:40:31] Waiting 10s for metrics to stabilize
+[2026-03-17 21:40:41] Running jmeter for iteration 43
+[2026-03-17 21:49:13] Collecting post-test metrics for iteration 43
+[2026-03-17 21:49:13] Iteration 43 results: acceptable=True, score=256256484.5041715, metrics=Metrics(throughput=97.79187196969697, response_time_ms=582.2960434622574, error_rate_pct=0.0, cpu_usage_cores=0.02376689619004148, cpu_request_cores=0.35, cpu_limit_cores=0.8, memory_usage_mib=129.8984375, memory_request_mib=256.0, memory_limit_mib=256.0)
+[2026-03-17 21:49:13] Iteration 44/50: applying ExperimentConfig(cpu_request_m=250, cpu_limit_m=600, memory_request_mib=128, memory_limit_mib=384, heap_mib=128, gc_type='UseParallelGC')
+[2026-03-17 21:49:45] Waiting 10s for metrics to stabilize
+[2026-03-17 21:49:55] Running jmeter for iteration 44
+[2026-03-17 21:58:28] Collecting post-test metrics for iteration 44
+[2026-03-17 21:58:28] Iteration 44 results: acceptable=True, score=384128469.31646407, metrics=Metrics(throughput=100.311145, response_time_ms=569.6276090947575, error_rate_pct=0.0, cpu_usage_cores=0.028943091415346782, cpu_request_cores=0.25, cpu_limit_cores=0.6, memory_usage_mib=128.12890625, memory_request_mib=128.0, memory_limit_mib=384.0)
+[2026-03-17 21:58:28] Iteration 45/50: applying ExperimentConfig(cpu_request_m=150, cpu_limit_m=1800, memory_request_mib=128, memory_limit_mib=256, heap_mib=128, gc_type='UseSerialGC')
+[2026-03-17 21:59:00] Waiting 10s for metrics to stabilize
+[2026-03-17 21:59:10] Running jmeter for iteration 45
+[2026-03-17 22:07:42] Collecting post-test metrics for iteration 45
+[2026-03-17 22:07:42] Iteration 45 results: acceptable=True, score=256128480.64291137, metrics=Metrics(throughput=101.82727272727271, response_time_ms=582.4701840863432, error_rate_pct=0.0, cpu_usage_cores=0.024712271658434898, cpu_request_cores=0.15, cpu_limit_cores=1.8, memory_usage_mib=123.546875, memory_request_mib=128.0, memory_limit_mib=256.0)
+[2026-03-17 22:07:42] Iteration 46/50: applying ExperimentConfig(cpu_request_m=350, cpu_limit_m=600, memory_request_mib=256, memory_limit_mib=384, heap_mib=128, gc_type='UseParallelGC')
+[2026-03-17 22:08:14] Waiting 10s for metrics to stabilize
+[2026-03-17 22:08:24] Running jmeter for iteration 46
+[2026-03-17 22:16:56] Collecting post-test metrics for iteration 46
+[2026-03-17 22:16:56] Iteration 46 results: acceptable=True, score=384256447.3461646, metrics=Metrics(throughput=99.52539818181818, response_time_ms=546.8715627771288, error_rate_pct=0.0, cpu_usage_cores=0.02364586604219842, cpu_request_cores=0.35, cpu_limit_cores=0.6, memory_usage_mib=126.74609375, memory_request_mib=256.0, memory_limit_mib=384.0)
+[2026-03-17 22:16:56] Iteration 47/50: applying ExperimentConfig(cpu_request_m=50, cpu_limit_m=200, memory_request_mib=128, memory_limit_mib=384, heap_mib=256, gc_type='UseParallelGC')
+[2026-03-17 22:17:28] Waiting 10s for metrics to stabilize
+[2026-03-17 22:17:38] Running jmeter for iteration 47
+[2026-03-17 22:26:10] Collecting post-test metrics for iteration 47
+[2026-03-17 22:26:10] Iteration 47 results: acceptable=True, score=384128481.8294704, metrics=Metrics(throughput=96.31469068181818, response_time_ms=578.1441610906172, error_rate_pct=0.0, cpu_usage_cores=0.02281108125719693, cpu_request_cores=0.05, cpu_limit_cores=0.2, memory_usage_mib=166.40234375, memory_request_mib=128.0, memory_limit_mib=384.0)
+[2026-03-17 22:26:10] Iteration 48/50: applying ExperimentConfig(cpu_request_m=450, cpu_limit_m=1500, memory_request_mib=384, memory_limit_mib=384, heap_mib=256, gc_type='UseSerialGC')
+[2026-03-17 22:26:42] Waiting 10s for metrics to stabilize
+[2026-03-17 22:26:52] Running jmeter for iteration 48
+[2026-03-17 22:35:25] Collecting post-test metrics for iteration 48
+[2026-03-17 22:35:25] Iteration 48 results: acceptable=True, score=384384471.96539986, metrics=Metrics(throughput=98.08973295454547, response_time_ms=570.0551328088332, error_rate_pct=0.0, cpu_usage_cores=0.02485440113624106, cpu_request_cores=0.45, cpu_limit_cores=1.5, memory_usage_mib=160.80859375, memory_request_mib=384.0, memory_limit_mib=384.0)
+[2026-03-17 22:35:25] Iteration 49/50: applying ExperimentConfig(cpu_request_m=250, cpu_limit_m=700, memory_request_mib=128, memory_limit_mib=256, heap_mib=128, gc_type='UseG1GC')
+[2026-03-17 22:35:57] Waiting 10s for metrics to stabilize
+[2026-03-17 22:36:07] Running jmeter for iteration 49
+[2026-03-17 22:44:39] Collecting post-test metrics for iteration 49
+[2026-03-17 22:44:39] Iteration 49 results: acceptable=True, score=256128510.8347152, metrics=Metrics(throughput=94.69196, response_time_ms=605.5266752067774, error_rate_pct=0.0, cpu_usage_cores=0.026078175254994174, cpu_request_cores=0.25, cpu_limit_cores=0.7, memory_usage_mib=163.59375, memory_request_mib=128.0, memory_limit_mib=256.0)
+[2026-03-17 22:44:39] Iteration 50/50: applying ExperimentConfig(cpu_request_m=50, cpu_limit_m=1100, memory_request_mib=256, memory_limit_mib=256, heap_mib=128, gc_type='UseSerialGC')
+[2026-03-17 22:45:11] Waiting 10s for metrics to stabilize
+[2026-03-17 22:45:21] Running jmeter for iteration 50
+[2026-03-17 22:53:53] Collecting post-test metrics for iteration 50
+[2026-03-17 22:53:53] Iteration 50 results: acceptable=True, score=256256523.22243318, metrics=Metrics(throughput=94.35116318181818, response_time_ms=617.5735963525916, error_rate_pct=0.0, cpu_usage_cores=0.026722380412671443, cpu_request_cores=0.05, cpu_limit_cores=1.1, memory_usage_mib=123.1796875, memory_request_mib=256.0, memory_limit_mib=256.0)
+[2026-03-17 22:53:53] Restoring baseline configuration
+[2026-03-17 22:54:25] Optimization complete.
+[2026-03-17 22:54:25] Best configuration: memory_limit=256Mi, memory_request=128Mi, cpu_request=50m, cpu_limit=800m, heap_mib=128, gc_type=UseSerialGC, throughput=100.03692848484849, response_time_ms=558.1742688748693, error_rate_pct=0.0

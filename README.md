@@ -74,11 +74,19 @@ Additionally, instances with smaller provisioning requirements on CPU and memory
     - [Summary Report](results-20260315_15i_ramp/report.html)
 - Baseline (as-is) configuration seem to be arbitrarily set to non-uniform values
     - Current: 200-300m CPU request-limit and 180-300Mi Memory request-limit
+    - Java Options: (container base image default) -Xms127m -Xmx127m -XX:+UseG1GC (lower than 80% practice)
 - Test Findings
     - G1GC (Garbage-first) seems to win slightly over Serial (low-resource environments); Parallel (good for batch processing) only for large pods
     - Constrained CPU results in linear latency (throughput) 90th percentile (user experience)
     - Matching heap configuration to pod resources improves immediate and longer responsiveness
     - Smaller resource requests (smaller pods) better for node-to-pod packing if autoscaling is used
+- Process Findings
+    - Use of AI-assisted coding speeds prototyping, but developer still needed for many adjustments
+    - Engine and infrastructure specifics must be extended/generalized to scale to other technologies in use like Node.js etc.
+    - This prototype took a few developer days worth of effort, but it must be maintained as well
+    - Further work to customize pipeline code and Grafana graphs also required for MVP
+    - No support for longitudinal comparisons between experiments on same/similar deployments
+    - No support for 'Lifecycle of Change' (LoC) into production retroactively informing this process
 
 # Recommendations
 
@@ -108,6 +116,48 @@ In all cases, we should also ensure that we:
 - If new compute costs outweigh savings on memory, pod packing consolidations, or autoscaling variability savings, then we know we're at lowest cost to maintain current throughput (a.k.a. 'at capacity'...which itself is not a safe place to be)
 
 > "CPU is generally more expensive than RAM in cloud provisioning, often making up about 88% of the total instance cost compared to 12% for memory. While memory is necessary, compute-optimized instances (high CPU) usually command higher prices per hour than memory-optimized ones, as CPUs are more complex and costly to manufacture." - [Cast.ai](https://cast.ai/blog/how-to-calculate-cpu-vs-memory-costs-for-more-accurate-k8s-cost-monitoring/)
+
+# Command Line Usage
+
+## Prerequisites
+
+- Python 3.12
+    - install all items in requirements.txt
+        '''python3 -m pip install -r requirements.txt')'''
+- a './scripts/run_jmeter.sh' script to run per iteration after each new configuration is applied
+- kubectl
+    - configured with access to the kubernetes cluster where online-boutique is deployed
+    - with the following permissions:
+        - GET and PATCH for deployments and pods in '...online-boutique' namespace
+        - GET, APPLY, and DELETE for deployments, jobs, and pods in the '...testing' namespace
+- Prometheus
+    - access to the prometheus instance used for metrics capture
+
+## Experiment Loop and Report Generation
+
+To run the main experiment loop:
+
+'''PYTHONUNBUFFERED=1 python3 online_boutique_optimizer.py --namespace online-boutique --iterations 15 --prometheus-url http://someone.lab.akamas.io:30900'''
+
+Subsequently, there will be a 'results' subdirectory containing the following files:
+
+- 'summary.json'
+- 'iterations.json'
+- 'iterations.csv'
+
+In a pipeline process, use a tool like 'jq' to extract the 'best_configuration' details, whose iteration number is not '0' (because this is always the baseline already in place), and apply to your permanent configuration sources as appropriate.
+
+'''jq '.best_configuration' 'results/summary.json''''
+'''jq -r '.best_configuration.gc_type' 'results/summary.json''''
+...
+
+NOTE: This tool is a homegrown example and the results of a research spike, not a complete solution for applying configurations without human approvals.
+
+To generate the final HTML report, run:
+
+'''python3 report_generator.py ./results'''
+
+The resulting 'report.html' in the subdirectory can then be viewed and archived as part of a pipeline process.
 
 # Additional Notes
 
