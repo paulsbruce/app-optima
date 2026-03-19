@@ -72,7 +72,7 @@ Additionally, instances with smaller provisioning requirements on CPU and memory
 - 50-iteration overnight 6+ hour test (for statistical significance)
     - [Summary Report](results-20260313_50i_ramp/report.html)
 - 15-iteration 1 hour test (for minimum proof and validation of 50-iteration test)
-    - [Summary Report](results-20260315_15i_ramp/report.html)
+    - [Summary Report](results-20260315-15i_ramp/report.html)
 - Baseline (as-is) configuration seem to be arbitrarily set to non-uniform values
     - Current: 200-300m CPU request-limit and 180-300Mi Memory request-limit
     - Java Options: (container base image default) -Xms127m -Xmx127m -XX:+UseG1GC (lower than 80% practice)
